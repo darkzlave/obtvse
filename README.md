@@ -81,3 +81,10 @@ SCREENSHOTS
 ![Admin](http://i.imgur.com/OVr7q.png)
 ![New](http://i.imgur.com/MTm2c.png)
 ![Edit](http://i.imgur.com/VSR7M.png)
+
+New website design, added new Kudos features
+![Kudos](http://i.imgur.com/vx7tY.png)
+
+Mobile site version included
+![Mobile Site](http://i.imgur.com/S2YMk.png)
+
