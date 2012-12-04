@@ -5,16 +5,26 @@
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag 'application' %>
   <meta name="author" content="<%= CONFIG['name'] %>">
+  <meta name="description" content="<%= CONFIG['tagline'] %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="/posts.rss" rel="alternate" title="RSS" type="application/rss+xml" />
   <link href='http://fonts.googleapis.com/css?family=Lato:300,900' rel='stylesheet' type='text/css' />
+  <link rel="icon" type="image/png" href="/assets/rocket.png" />
+  <%= stylesheet_link_tag 'bootstrap' %>
 </head>
 
 <body class="<%= controller_name %> <%= action_name %>">
   <% unless @no_header %>
-  <header>
-    <h1><%= link_to CONFIG['title'], root_url %></h1>
-    <span><%= CONFIG['tagline'].html_safe %></span>
-    <ul>
+  <header id="sidebar">
+  <aside id="logo1" class="clearfix">
+      <div class="clearfix">
+        <a href="http://philli.pe"> <img src="/assets/rocket.png" /> </a>
+      </div>
+    </aside>    
+    <h1 id="blogTitle"><%= link_to CONFIG['title'], root_url %></h1>
+    <h2 id="blog_owner"><a href="http://philli.pe">Phillipe Casorla Sagot</a></h2>
+    <span id="tagline" ><%= CONFIG['tagline'].html_safe %></span>
+    <ul id="user_meta">
       <% if CONFIG['twitter'] %>
         <li><%= link_to '@' + CONFIG['twitter'], 'http://twitter.com/' + CONFIG['twitter'] %></li>
       <% end %>
@@ -22,27 +32,27 @@
         <li><%= link_to 'github', 'https://github.com/' + CONFIG['github'] %></li>
       <% end %>
       <% if CONFIG['email'] %>
-        <li><%= link_to 'say hi', "mailto:#{CONFIG['email']}?subject:whats up!" %></li>
+        <li><%= link_to 'say hello', "mailto:#{CONFIG['email']}?subject:hi!" %></li>
       <% end %>
-      <li><%= link_to 'rss feed', '/posts.rss' %></li>
+      <li><%= link_to 'feed', '/posts.rss' %></li>
     </ul>
     <span class="powered-by">
-      Powered by <a href="http://github.com/natew/obtvse.git">Obtvse</a>
+      Powered by <a href="http://github.com/sids-aquarius/obtvse.git">Obtvse</a>
       <% if is_admin? %> &nbsp;&middot;&nbsp; <a href="/admin">Admin</a><% end %>
   </span>
 
   </header>
   <% end %>
 
-  <div id="container">
-    <% unless @no_header %>
+  <section id="river">
+   <header id="begin">
+        <% unless @no_header %>
       <time><% if @post && @post.created_at %>Posted <%= @post.created_at.to_formatted_s(:day_month_year) %><% else %><%= Time.now.to_formatted_s(:day_month_year) %><% end %></time>
     <% end %>
-    <div id="content">
-      <% if notice %><span class="notice"><%= notice %></span><% end %>
-      <%= yield %>
-    </div>
-  </div>
+  </header> 
+  <% if notice %><span class="notice"><%= notice %></span><% end %>
+  <%= yield %>
+</section>
 
   <%= javascript_include_tag 'application' %>
 
