@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :authenticate, :except => [:index, :show]
+  before_filter :authenticate, :except => [:index, :show,:kudos]
   layout :choose_layout
 
   def index
@@ -17,6 +17,20 @@ class PostsController < ApplicationController
     @preview = true
     respond_to do |format|
       format.html { render 'show' }
+    end
+  end
+
+def kudos
+    @post = Post.find_by_slug(params[:slug])
+    @post.kudos += params[:kudos].to_i
+    @post.save
+    if params[:kudos].to_i == 1
+      session[@post.id.to_s.to_sym] = "true"
+    else
+      session.delete(@post.id.to_s.to_sym)
+    end
+    respond_to do |format|
+      format.xml { head :ok }
     end
   end
 

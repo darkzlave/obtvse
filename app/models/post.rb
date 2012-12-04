@@ -1,10 +1,12 @@
 class Post < ActiveRecord::Base
   validates :title, presence: true
+  validates :kudos, presence: false
   validates :slug, presence: true, uniqueness: true
   acts_as_url :title, :url_attribute => :slug
 
   default_scope order('created_at desc')
 
+  attr_accessible :kudos, :title, :content, :slug, :draft
   def to_param
     slug
   end
